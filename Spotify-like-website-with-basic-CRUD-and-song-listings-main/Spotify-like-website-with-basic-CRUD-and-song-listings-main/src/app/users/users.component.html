@@ -1,0 +1,108 @@
+<div class="container">
+    <div class="col-md-12">
+
+
+        <div *ngIf='login == "false"'>
+        <form >
+            <h2>Login</h2>
+            <p>Email: <input type="email" name="email" [(ngModel)]="email" /></p>
+            <p>Password: <input type="password" name="password" [(ngModel)]="password" /></p>
+           
+           
+            <p>
+                <button onClick="window.location.reload();" type="button" class="btn btn-primary mr-2" (click)="signin()">Login</button>
+                
+            </p>
+        </form>
+    </div>
+
+    <div *ngIf='login == "false"'>
+        <form >
+            <h2>Signup</h2>
+            <p>Email: <input type="email" name="email" [(ngModel)]="email" /></p>
+            <p>Username: <input type="text" name="name" [(ngModel)]="name" /></p>
+            <p>Password: <input type="password" name="password" [(ngModel)]="password" /></p>
+           
+           
+            <p>
+                <button onClick="window.location.reload();" type="button" class="btn btn-primary mr-2" (click)="signup()">Signup</button>
+                
+            </p>
+        </form>
+    </div>
+
+
+    
+
+
+        <div *ngIf='login == "true"'>
+        <h1>Song List</h1>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">Song Name</th>
+                    <th class="text-center">Date of Release</th>
+                    <th class="text-center">Artist Name</th>
+                    <th class="text-center">Song Image</th>
+                    <th class="text-center">Delete Song</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.song_name }}</td>
+                    <td>{{ user.dor }}</td>
+                    <td>{{ user.artist_id }}</td>
+                    <td><img src="{{user.image}}" width="100" height="70"></td>
+                    <td>
+                        <button onClick="window.location.reload();" class="btn btn-danger" (click)="removeUser(user)">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="btn btn-success" (click)="showAddUserForm()"><i class="fa fa-plus"></i></button>
+        <br />
+        <br />
+
+        <form *ngIf="userForm">
+            <h2>Add New Song</h2>
+            <p>Song Name: <input type="text" name="firstName" [(ngModel)]="newUser.firstName" /></p>
+            <p>Date of Release: <input type="date" name="lastName" [(ngModel)]="newUser.lastName" /></p>
+            <p>Artist
+            <ng-multiselect-dropdown
+                [placeholder]="'Search Artist'"
+                [data]="dropdownList"
+                [settings]="dropdownSettings"
+                (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+            >
+            </ng-multiselect-dropdown></p>
+            <p>Song Image<input type="file" (change)="OnUploadFile($event)"></p>
+            <p>
+                <button onClick="window.location.reload();" type="button" class="btn btn-primary mr-2" (click)="saveUser(newUser)">Submit</button>
+                <button type="button" class="btn btn-warning" (click)="cancelNewUser()">Cancel</button>
+            </p>
+        </form>
+
+        <!--<form *ngIf="editUserForm">
+            <h2>Edit Song Details</h2>
+            <p>Song Name: <input type="text" name="firstName" [(ngModel)]="editedUser.firstName" /></p>
+            <p>Date of Release: <input type="text" name="lastName" [(ngModel)]="editedUser.lastName" /></p>
+            <p>
+                <button type="button" class="btn btn-primary mr-2" (click)="updateUser(editedUser)">Submit</button>
+                <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button>
+            </p>
+        </form>!-->
+    </div>
+
+    <div *ngIf='login == "true"'>
+        <p>
+            <button onClick="window.location.reload(); localStorage.removeItem('login');" type="button" class="btn btn-primary mr-2" (click)="logout()">Logout</button>
+            
+        </p>
+    </div>
+
+    </div>
+</div>

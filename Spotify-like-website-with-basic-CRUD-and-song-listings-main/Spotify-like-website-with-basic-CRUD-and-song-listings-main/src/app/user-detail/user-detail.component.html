@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="col-md-12">
+
+        <div *ngIf='login=="true"'>
+        <h1>Artist List</h1>
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <!--<th class="text-center">ID</th>!-->
+                    <th class="text-center">Artist Name</th>
+                    <th class="text-center">Date of Birth</th>
+                    <th class="text-center">Artist Bio</th>
+                    <th class="text-center">Update & Delete Artist</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.item_text }}</td>
+                    <td>{{ user.dob }}</td>
+                    <td>{{ user.bio }}</td>
+
+                    <td>
+                        <button  class="btn btn-info mr-2" (click)="showEditUserForm(user)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button onClick="window.location.reload();" class="btn btn-danger" (click)="removeUser(user)">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <button class="btn btn-success" (click)="showAddUserForm()"><i class="fa fa-plus"></i></button>
+        <br />
+        <br />
+
+        <form *ngIf="userForm">
+            <h2>Add New Artist</h2>
+            <p>Artist Name: <input type="text" name="firstName" [(ngModel)]="newUser.firstName" /></p>
+            <p>Date Of Birth: <input type="date" name="lastName" [(ngModel)]="newUser.lastName" /></p>
+            <p>Artist Bio: <input type="text" name="bio" [(ngModel)]="newUser.bio" /></p>
+            <p>
+                <button onClick="window.location.reload();" type="button" class="btn btn-primary mr-2" (click)="saveUser(newUser)">Submit</button>
+                <button type="button" class="btn btn-warning" (click)="cancelNewUser()">Cancel</button>
+            </p>
+        </form>
+
+        <form *ngIf="editUserForm">
+            <h2>Edit Artist Details</h2>
+            <p>Artist Name: <input type="text" name="firstName" [(ngModel)]="editedUser.item_text" /></p>
+            <p>Date of Birth: <input type="date" name="lastName" [(ngModel)]="editedUser.dob" /></p>
+            <p>Artist Bio: <input type="text" name="bio" [(ngModel)]="editedUser.bio" /></p>
+            <p><input type="hidden" name="id" [(ngModel)]="editedUser.item_id" /></p>
+            <p>
+                <button  type="button" class="btn btn-primary mr-2" (click)="updateUser(editedUser)">Submit</button>
+                <button type="button" class="btn btn-warning" (click)="cancelEdits()">Cancel</button>
+            </p>
+        </form>
+        </div>
+    </div>
+</div>
